@@ -1,0 +1,11 @@
+<div > 
+    {% if display%}
+    <h1>{{from}} to {{to}} </h1>
+   
+    {% if status %}
+<img src="data:image/png;base64, {{chart|safe}} " alt="loading">
+{%else%}
+<h1>NO data Available</h1>
+{% endif %}
+{% endif %}
+</div>

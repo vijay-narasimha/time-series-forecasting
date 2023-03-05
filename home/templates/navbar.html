@@ -1,0 +1,9 @@
+<div class="navbar navbar-expand bg-info p-4 h3">
+    <div class="container-fluid text-light ">Forecasting</div>
+
+    {% if location %}
+  <div class="btn btn-primary text-center"><a href="predict" >Predict</a></div>
+{% else %}
+<div class="btn btn-primary text-center"><a href="/" >Home</a></div>
+{% endif %}
+</div>
