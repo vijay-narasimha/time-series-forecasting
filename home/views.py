@@ -55,7 +55,7 @@ def index(req):
     
     
         
-    from_date='2013-01-01'
+    from_date='2016-01-01'
 
     to_date='2017-08-15'
     chart_type='line_graph'
@@ -87,14 +87,14 @@ def index(req):
             'path':'index',
             'location':True,
             'display':True,
-            'date_from':'2013-01-01',
+            'date_from':'2016-01-01',
         'date_to':'2017-08-15'
         }
     else:
         data={'path':'index',
         'location':True,
         'display':False,
-        'date_from':'2013-01-01',
+        'date_from':'2016-01-01',
         'date_to':'2017-08-15'
         }
     
