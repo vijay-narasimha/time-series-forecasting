@@ -61,10 +61,11 @@ def index(req):
     chart_type='line_graph'
     results='date'
     if req.method=='POST':
-        train_url='https://drive.google.com/uc?id=1Bv1B2vUGzi3oL4C6RYO00gnL5M-pHUHr&export=download&confirm=t' 
-        response1=requests.get(train_url,allow_redirects=True)
-        content1=StringIO(response1.content.decode('utf-8'))
-        train_file=pd.read_csv(content1)
+        # train_url='https://drive.google.com/uc?id=1Bv1B2vUGzi3oL4C6RYO00gnL5M-pHUHr&export=download&confirm=t' 
+        # response1=requests.get(train_url,allow_redirects=True)
+        # content1=StringIO(response1.content.decode('utf-8'))
+        # train_file=pd.read_csv(content1)
+        train_file=pd.read_csv('static/train.csv')
         from_date=req.POST.get('from_date')
         
         to_date=req.POST.get("to_date")
@@ -123,10 +124,11 @@ def prediction(req):
         results=req.POST.get('results')
         test_file=pd.read_csv("static/test.csv")
         
-        model_url='https://drive.google.com/uc?id=1wwUX80qOiKYPRBlriMHcVAKUo49q4OwJ&export=download&confirm=t'
-        response3=requests.get(model_url,allow_redirects=True)
-        content3=BytesIO(response3.content)
-        model=load(content3)
+        # model_url='https://drive.google.com/uc?id=1wwUX80qOiKYPRBlriMHcVAKUo49q4OwJ&export=download&confirm=t'
+        # response3=requests.get(model_url,allow_redirects=True)
+        # content3=BytesIO(response3.content)
+        # model=load(content3)
+        model=load('static/model.h5')
         file=test_file[(test_file['date']>=from_date) & (test_file['date']<=to_date)]
         date=pd.DataFrame(file['date'])
         status=1 
