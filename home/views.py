@@ -8,7 +8,7 @@ from joblib import load
 import requests 
 from io import BytesIO,StringIO
 import h5py
-
+import calendar
 
 # test_url='https://drive.google.com/uc?id=1Bv1B2vUGzi3oL4C6RYO00gnL5M-pHUHr&export=download&confirm=t' 
 # response2=requests.get(test_url,allow_redirects=True)
@@ -83,9 +83,10 @@ def index(req):
             'from':from_date,
             'to':to_date,
             'status':status,
-            'title':"",
+            'title':"Analysis",
             'path':'index',
             'location':True,
+            
             'display':True,
             'date_from':'2016-01-01',
         'date_to':'2017-08-15'
@@ -94,6 +95,7 @@ def index(req):
         data={'path':'index',
         'location':True,
         'display':False,
+        'title':'Analysis',
         'date_from':'2016-01-01',
         'date_to':'2017-08-15'
         }
@@ -156,6 +158,7 @@ def prediction(req):
             'title':"Prediction",
             'path':'predict',
             'location':False,
+            'day':False,
             'display':True,
             'date_from':'2017-08-16',
              'date_to':'2017-08-31'
@@ -166,6 +169,7 @@ def prediction(req):
         data={'path':'predict',
         'title':'Prediction',
         'location':False,
+        'day':False,
         'display':False,
         'date_from':'2017-08-16',
         'date_to':'2017-08-31'
@@ -174,3 +178,55 @@ def prediction(req):
     
     return render(req,'index.html',data)
     
+
+def dayanalysis(req):
+    if req.method=='POST':
+        model=load('static/model.h5')
+
+        from_date=req.POST.get('from_date')
+        store_id=req.POST.get('store_id')
+        family=req.POST.get('family')
+        promotion=req.POST.get('promotion')
+        oil_price=req.POST.get('oil_price')
+        transactions=req.POST.get("transactions")
+        year,month,day=(int(i) for i in from_date.split('-'))
+        dayofweek=calendar.weekday(year,month,day)+1
+        familydict={
+                'AUTOMOTIVE':0,
+                "BEAUTY":2,
+                'BOOKS':4,
+                'HARDWARE':14,
+                'MAGAZINES':23,
+                'PET SUPPLIES':26,
+                'ELECTRONICS':27
+            }
+
+        if dayofweek>5:
+            holiday=1 
+        else:
+            holiday=5 
+        store_nbr=store_id
+        promotion=promotion
+        oil_price=oil_price
+        family=familydict[family]
+        transactions=transactions
+        print([[dayofweek,store_nbr,family,promotion,holiday,oil_price,transactions]])
+        
+        result=model.predict([[dayofweek,store_nbr,family,promotion,holiday,oil_price,transactions]])
+        result=round(result[0],2)
+        data={
+            'location':False,
+            'day':True,
+            'path':'day',
+            'result':result,
+            'title':'Day Analysis'
+        }
+    else:
+
+        data={
+            'location':False,
+            'day':True,
+            'path':'day',
+            'title':'Day Analysis'
+        }
+    return render(req,'day.html',data)

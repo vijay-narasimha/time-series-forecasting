@@ -1,38 +1,48 @@
-  <div class="col-md-4 col-lg-5 forms_container ">
-    <div class="visualize-data container mt-5">
-<form   method="POST" action="{% url path %}" >
-{% csrf_token %}
+  <div class=" forms_container ">
+    <div class="visualize-data container mt-5 form-width">
 
-            <div class="mb-3">
-                <label for="from_date form-label">From Date</label>
-                <input type="date" class="form-control" id="from_date" name="from_date" min={{date_from}} max={{date_to}} required>
+        <div class="card  ">
+            <div class="card-body ">
+
+                <form   method="POST" action="{% url path %}" >
+                    {% csrf_token %}
+                               <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="from_date form-label">From Date</label>
+                                    <input type="date" class="form-control" id="from_date" name="from_date" min={{date_from}} max={{date_to}} required>
+                                </div>
+                               </div>
+                              
+                                <div class="mb-3">
+                                    <label for="to_date form-label">To Date</label>
+                                    <input type="date" class="form-control" id="to_date" name="to_date" min={{date_from}} max={{date_to}} required>
+                                    
+                                </div>
+                                <div class="mb-3">
+                                    <label for="chart_type form-label">Chart type</label>
+                                    <select id="chart_type" name="chart_type">
+                                        <option value="line_graph">Line Graph</option>
+                                        <option value="pie_graph">Pie Graph</option>
+                                        <option value="bar_graph">Bar Graph</option>
+                                        
+                                      </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="results form-label">Results by</label>
+                                    <select id="results" name="results">
+                                        <option value="date">Date</option>
+                                        <option value="family">Family</option>
+                                        <option value="store_nbr">Store no</option>
+                                        
+                                      </select>
+                                </div>
+                               
+                                <button type="submit" class="btn btn-primary" >Submit</button>
+                            </form>
+
             </div>
-            <div class="mb-3">
-                <label for="to_date form-label">To Date</label>
-                <input type="date" class="form-control" id="to_date" name="to_date" min={{date_from}} max={{date_to}} required>
-                
-            </div>
-            <div class="mb-3">
-                <label for="chart_type form-label">Chart type</label>
-                <select id="chart_type" name="chart_type">
-                    <option value="line_graph">Line Graph</option>
-                    <option value="pie_graph">Pie Graph</option>
-                    <option value="bar_graph">Bar Graph</option>
-                    
-                  </select>
-            </div>
-            <div class="mb-3">
-                <label for="results form-label">Results</label>
-                <select id="results" name="results">
-                    <option value="date">Date</option>
-                    <option value="family">Family</option>
-                    <option value="store_nbr">Store no</option>
-                    
-                  </select>
-            </div>
-           
-            <button type="submit" class="btn btn-primary" >Submit</button>
-        </form>
+        </div>
+
         
     </div>
 </div>
